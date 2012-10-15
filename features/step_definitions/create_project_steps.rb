@@ -3,7 +3,7 @@ Given /^I am on the homepage$/ do
 end
 
 When /^I create a new project$/ do
-  pending # express the regexp above with the code you wish you had
+  click_link 'New Project'
 end
 
 Then /^I should see "(.*?)"$/ do |arg1|

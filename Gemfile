@@ -16,6 +16,7 @@ group :assets do
   gem 'uglifier'
   gem 'therubyracer'
   gem 'therubyracer'
+  gem 'dynamic_form'
 end
 
 gem 'jquery-rails'

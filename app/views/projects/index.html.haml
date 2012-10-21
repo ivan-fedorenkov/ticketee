@@ -1,1 +1,7 @@
+%table
+  %tr
+    %th Project name
+  - @all_projects.each do |project|
+    %tr
+      %td= project.name
 = link_to "New Project", new_project_path

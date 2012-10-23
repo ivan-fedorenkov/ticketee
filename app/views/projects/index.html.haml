@@ -1,7 +1,4 @@
-%table
-  %tr
-    %th Project name
-  - @all_projects.each do |project|
-    %tr
-      %td= link_to project.name, project
 = link_to "New Project", new_project_path
+%ul
+- @all_projects.each do |project|
+  %li= link_to project.name, project

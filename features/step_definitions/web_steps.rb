@@ -120,6 +120,14 @@ Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
+Then /^(?:|I )should see the "([^"]*)" link$/ do |link|
+  assert page.has_link?(link)
+end
+
+Then /^(?:|I )should not see the "([^"]*)" link$/ do |link|
+  assert !page.has_link?(link)
+end
+
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   if page.respond_to? :should
     page.should have_no_content(text)

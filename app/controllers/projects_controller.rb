@@ -46,7 +46,11 @@ class ProjectsController < ApplicationController
 
   private
     def find_project
-      @project = Project.readable_by(current_user).find(params[:id])
+      if current_user.admin?
+        @project = Project.find(params[:id])
+      else
+        @project = Project.readable_by(current_user).find(params[:id])
+      end
       rescue ActiveRecord::RecordNotFound
       flash[:alert] = "The project you were looking" +
         " for could not be found."

@@ -10,6 +10,7 @@ Background:
     | user@ticketee.com | password |
   And I am signed in as them
   And "user@ticketee.com" can view the "TextMate 2" project
+  And "user@ticketee.com" can delete tickets in the "TextMate 2" project
   And the "user@ticketee.com" has created a ticket for this project:
     | title | description |
     | Make it shiny! | Gradients! Starbursts! Oh my! |

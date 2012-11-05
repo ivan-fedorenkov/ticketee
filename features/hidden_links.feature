@@ -5,9 +5,9 @@ Feature: Hidden Links
 
 Background:
   Given there are the following users:
-    | email | password | admin |
-    | user@ticketee.com | password | false |
-    | admin@ticketee.com | password | true |
+    | email               | password | admin  |
+    | user@ticketee.com   | password | false  |
+    | admin@ticketee.com  | password | true   |
   And there is a project called "TextMate 2"
   And "user@ticketee.com" can view the "TextMate 2" project
 
@@ -42,3 +42,82 @@ Scenario: Delete project link is shown to admins
   Given I am signed in as "admin@ticketee.com"
   When I follow "TextMate 2"
   Then I should see the "Delete Project" link
+
+Scenario: Create ticket link should be visible to authorized users
+  Given I am signed in as "user@ticketee.com"
+  And "user@ticketee.com" can create tickets on the "TextMate 2" project 
+  When I follow "TextMate 2"
+  Then I should see the "New Ticket" link
+
+Scenario: Create ticket link should not be visible to non-authorized users
+  Given I am signed in as "user@ticketee.com"
+  When I follow "TextMate 2"
+  Then I should not see the "New Ticket" link
+
+Scenario: Create ticket link should be visible to admins
+  Given I am signed in as "admin@ticketee.com"
+  When I follow "TextMate 2"
+  Then I should see the "New Ticket" link
+
+Scenario: Edit ticket link should be visible to authorized users
+  Given I am signed in as "user@ticketee.com"
+  And "user@ticketee.com" can create tickets on the "TextMate 2" project
+  And "user@ticketee.com" can edit tickets on the "TextMate 2" project
+  And the "user@ticketee.com" has created a ticket for this project:
+    | title | description                   |
+    | Shiny | Gradients! Starbursts! Oh my! |
+  When I follow "TextMate 2"
+  And I follow "Shiny"
+  Then I should see the "Edit Ticket" link
+
+Scenario: Edit ticket link should not be visible to non-authorized users
+  Given I am signed in as "user@ticketee.com"
+  And "user@ticketee.com" can create tickets on the "TextMate 2" project
+  And the "user@ticketee.com" has created a ticket for this project:
+    | title | description                   |
+    | Shiny | Gradients! Starbursts! Oh my! |
+  When I follow "TextMate 2"
+  And I follow "Shiny"
+  Then I should not see the "Edit Ticket" link
+
+Scenario: Edit ticket link should be visible to admins
+  Given I am signed in as "admin@ticketee.com"
+  And "user@ticketee.com" can create tickets on the "TextMate 2" project
+  And the "user@ticketee.com" has created a ticket for this project:
+    | title | description                   |
+    | Shiny | Gradients! Starbursts! Oh my! |
+  When I follow "TextMate 2"
+  And I follow "Shiny"
+  Then I should see the "Edit Ticket" link
+
+Scenario: Delete ticket link should be visible to authorized users
+  Given I am signed in as "user@ticketee.com"
+  And "user@ticketee.com" can create tickets on the "TextMate 2" project
+  And "user@ticketee.com" can delete tickets on the "TextMate 2" project
+  And the "user@ticketee.com" has created a ticket for this project:
+    | title | description                   |
+    | Shiny | Gradients! Starbursts! Oh my! |
+  When I follow "TextMate 2"
+  And I follow "Shiny"
+  Then I should see the "Delete Ticket" link
+
+Scenario: Delete ticket link should not be visible to non-authorized users
+  Given I am signed in as "user@ticketee.com"
+  And "user@ticketee.com" can create tickets on the "TextMate 2" project
+  And the "user@ticketee.com" has created a ticket for this project:
+    | title | description                   |
+    | Shiny | Gradients! Starbursts! Oh my! |
+  When I follow "TextMate 2"
+  And I follow "Shiny"
+  Then I should not see the "Delete Ticket" link
+
+Scenario: Delete ticket link should be visible to admins
+  Given I am signed in as "admin@ticketee.com"
+  And "user@ticketee.com" can create tickets on the "TextMate 2" project
+  And the "user@ticketee.com" has created a ticket for this project:
+    | title | description                   |
+    | Shiny | Gradients! Starbursts! Oh my! |
+  When I follow "TextMate 2"
+  And I follow "Shiny"
+  Then I should see the "Delete Ticket" link
+

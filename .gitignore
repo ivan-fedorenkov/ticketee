@@ -4,4 +4,4 @@ log/*.log
 tmp/
 .sass-cache/
 public/system
-files
+files/*

@@ -1,1 +1,4 @@
-%span.tag= tag.name
+%span{:id => "tag-#{tag.name.parameterize}", :class => "tag"}
+  - authorized?(:tag, @ticket.project) do
+    = link_to "x", remove_ticket_tag_path(@ticket, tag), :method => :delete, :remote => true, :id => "delete-#{tag.name.parameterize}"
+  = tag.name

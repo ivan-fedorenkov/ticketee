@@ -8,9 +8,9 @@
     = f.label :description
     %br
     = f.text_area :description
-  %p
-    = label_tag :tags
-    = text_field_tag :tags, params[:tags]
+  
+  = render 'tags/form'
+    
   %p
     #files
       = render :partial => "files/form", :locals => { :number => 0 }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121229102323) do
+ActiveRecord::Schema.define(:version => 20130122162035) do
 
   create_table "assets", :force => true do |t|
     t.string   "asset_file_name"
@@ -67,6 +67,11 @@ ActiveRecord::Schema.define(:version => 20121229102323) do
     t.integer "ticket_id"
   end
 
+  create_table "ticket_watchers", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "ticket_id"
+  end
+
   create_table "tickets", :force => true do |t|
     t.string   "title"
     t.text     "description"
@@ -97,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20121229102323) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.boolean  "admin",                                 :default => false
+    t.string   "authentication_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

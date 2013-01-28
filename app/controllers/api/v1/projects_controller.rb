@@ -6,6 +6,11 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     respond_with(Project.for(current_user))
   end
 
+  def show
+    @project = Project.find(params[:id])
+    respond_with(@project, :methods => "last_ticket")
+  end
+
   def create
     project = Project.new(params[:project])
     if project.save

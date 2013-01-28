@@ -31,6 +31,35 @@ describe '/api/v1/projects', :type => :api do
       projects.any? { |p| p["name"] == "Access Denied" }.should be_false
 
     end
+
+    it "xml" do
+      get "#{url}.xml", :token => token
+      last_response.body.should eql(Project.readable_by(user).to_xml)
+      projects = Nokogiri::XML(last_response.body)
+      projects.css("project name").text.should eql("Ticketee")
+    end
+
+  end
+
+  context "creating a project" do
+    let(:url) { "/api/v1/projects" }
+
+    it "successful JSON" do
+      post "#{url}.json", :token => token, :project => {:name => "Inspector"}
+      project = Project.find_by_name("Inspector")
+      route = "/api/v1/projects/#{project.id}"
+
+      last_response.status.should eql(201)
+      last_response.headers["Location"].should eql(route)
+      last_response.body.should eql(project.to_json)
+    end
+
+    it "unsuccessful JSON" do
+      post "#{url}.json", :token => token, :project => {}
+      last_response.status.should eql(422)
+      errors = {"name" => ["can't be blank"]}.to_json
+      last_response.body.should eql(errors)
+    end
   end
 end
 

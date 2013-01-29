@@ -109,6 +109,16 @@ describe '/api/v1/projects', :type => :api do
       last_response.body.should eql(errors.to_json)
     end
   end
+
+  context "deleting a project" do
+    before { user.admin = true; user.save }
+    let(:url) { "/api/v1/projects/#{@project.id}" }
+
+    it "json" do
+      delete "#{url}.json", :token => token
+      last_response.status.should eql(200)
+    end
+  end
 end
 
 

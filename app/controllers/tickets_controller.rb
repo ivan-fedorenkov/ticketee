@@ -53,6 +53,7 @@ class TicketsController < ApplicationController
   
   def search
     @tickets = @project.tickets.search(params[:search])
+    @tickets = @tickets.page(params[:page]).per(50)
     render "projects/show"
   end
   

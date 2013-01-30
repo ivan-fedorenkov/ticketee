@@ -15,3 +15,5 @@
     %li 
       = render ticket.state if ticket.state
       = "##{ticket.id} - #{link_to ticket.title, [@project,ticket]}".html_safe
+
+= paginate @tickets
